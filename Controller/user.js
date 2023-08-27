@@ -52,7 +52,6 @@ exports.identify = async (req, res) => {
             });
         }
 
-
         let allPrimary = true;
         for (let i = 0; i < user.length; i++) {
             if (user[i].linkPrecedence === "secondary") {
@@ -60,7 +59,6 @@ exports.identify = async (req, res) => {
                 break
             }
         }
-
 
         let distinguishingFactor;
         for (let i = 0; i < user.length; i++) {
@@ -74,7 +72,6 @@ exports.identify = async (req, res) => {
                 distinguishingFactor = 'Either Match';
             }
         }
-        console.log(oldestTime, allPrimary, distinguishingFactor)
 
         let userDetails = {
             phoneNumber: phoneNumber,
@@ -135,17 +132,6 @@ exports.identify = async (req, res) => {
                     }
                 })
         }
-        // else if (distinguishingFactor === "Either Match") {
-        //     res.status(200).json(
-        //         {
-        //             contact: {
-        //                 "primaryContatctId": primaryContactId,
-        //                 "emails": returnEmails,
-        //                 "phoneNumbers": returnPhoneNumbers,
-        //                 "secondaryContactIds": secondaryContactIds
-        //             }
-        //         })
-        // }
         else {
             res.status(200).json(
                 {
@@ -154,10 +140,9 @@ exports.identify = async (req, res) => {
                     }
                 })
         }
-
-
     }
     catch (err) {
         console.log(err)
+        res.status(501).json({ message: "Server Error" })
     }
 }
